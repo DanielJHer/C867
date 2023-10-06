@@ -1,4 +1,3 @@
-//
 //  student.hpp
 
 #ifndef student_hpp
@@ -45,7 +44,7 @@ public:
     void setFirstName (string firstName);
     void setLastName (string lastName);
     void setEmailAddress (string emailAddress);
-    void setAge (int studentAge);
+    void setAge (int age);
     void setDaysInCourse (int daysInCourse1, int daysInCourse2, int daysInCourse3);
     void setDegreeProgram (DegreeProgram degreeProgram);
     
@@ -57,7 +56,7 @@ public:
     void printAge();
     void printDaysToComplete();
     void printDegreeProgram();
-    void printAll();
+    void print();
     
 };
 

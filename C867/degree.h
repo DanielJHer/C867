@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum DegreeProgram { SECURITY, NETWORK, SOFTWARE };
+enum DegreeProgram { NOTHING, SECURITY, NETWORK, SOFTWARE };
 
 
 #endif 
