@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "degree.h"
+
 using namespace std;
 using std::string;
 using std::cout;
