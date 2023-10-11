@@ -19,7 +19,7 @@ Roster::Roster(int classSize) {
     return;
 }
 
-string Roster::GetStudentID(<#int index#>) {
+string Roster::GetStudentID(int ind) {
     string sID = classRosterArray[ind]->getStudentID();
     return sID;
 }
@@ -92,7 +92,114 @@ void Roster::parse(string studentData) {
     return;
 };
 
-void Roster::add(<#string studentID#>, string firstName, <#string lastName#>, <#string email#>Address, <#int studentAge#>, <#int daysInCourse1#>, <#int daysInCourse2#>, <#int daysInCourse3#>, DegreeProgram degreeProgram) {
-    int daysInCourse[3] = { daysInCourse1, daysInCourse2, daysInCourse3};
-    classRosterArray[classSize] = new Student(studentID, firstName, lastName, emailAddress, studentAge, daysInCourse, degreeProgram);
+// adding student object in roster class
+void Roster::add(string studentID, string firstName, string lastName, string email, int age,
+    int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram) {
+
+    int daysInCourse[3] = { daysInCourse1, daysInCourse2, daysInCourse3 };
+
+    classRosterArray[classSize] = new Student(studentID, firstName, lastName, email, age, daysInCourse, degreeProgram);
 };
+
+// removing student object in roster class
+void Roster::remove(string id) {
+
+    bool foundStudent = false;
+    for (int i = 0; i < classSize; i++) {
+        if (classRosterArray[i] == nullptr) {
+            continue;
+        }
+        else if (id == classRosterArray[i]->getStudentID()) {
+            classRosterArray[i] = nullptr;
+            foundStudent = true;
+            break;
+        }
+    }
+    if (foundStudent == false) {
+        cout << "Error: Student " << id << " Not Found." << endl;
+    }
+    else if (foundStudent == true) {
+        cout << "Student " << id << " removed." << endl;
+    }
+    return;
+}
+
+// printing all student objects
+void Roster::printAll() {
+    cout << "All students: " << endl;
+    for (int i = 0; i < classSize; i++) {
+        if (classRosterArray[i] == nullptr) {
+            continue;
+        } else {
+            classRosterArray[i]->print();
+        }
+    }
+    cout << endl;
+    return;
+}
+
+// printing the average number of days for courses
+void Roster::printAverageDaysInCourse(string id) {
+    for (int i = 0; i < classSize; i++) {
+        if (id == classRosterArray[i]->getStudentID()) {
+                cout << id << "" << "'s average days in course:" <<
+                    ((classRosterArray[i]->getDaysInCourse()[0] +
+                        classRosterArray[i]->getDaysInCourse()[1] +
+                        classRosterArray[i]->getDaysInCourse()[2]) / 3)
+                    << endl;
+        }
+    }
+    return;
+}
+
+// printing invalid emails from roster
+void Roster::printInvalidEmails() {
+    for (int i = 0; i < classSize; ++i) {
+        string emailAd = classRosterArray[i]->getEmailAddress();
+        if ((emailAd.find('@') == string::npos) ||  (emailAd.find(' ') != string::npos) || (emailAd.find('.') == string::npos)) {
+            cout<<"Invalid Email Addresses:" << classRosterArray[i]->getStudentID() << " email address " << emailAd << " is invalid." << endl;
+        }
+    }
+    cout << endl;
+    return;
+}
+
+// printing by specific degree program
+void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
+    string degreeString;
+    if (degreeProgram == SECURITY) {
+        degreeString = "SECURITY";
+    } else if (degreeProgram == NETWORK) {
+        degreeString = "NETWORK";
+    } else if (degreeProgram == SOFTWARE) {
+        degreeString = "SOFTWARE";
+    } else if (degreeProgram == NOTHING) {
+        degreeString = "NOTHING";
+    } else {
+        degreeString = "ERROR";
+    }
+    
+    cout << "Students with degree program: " << degreeString << endl;
+    int numStudents = 0;
+    for (int i = 0; i < classSize; i++) {
+        if (classRosterArray[i]->getDegreeProgram() == degreeProgram) {
+            classRosterArray[i]->print();
+            ++numStudents;
+        }
+    }
+    
+    if (numStudents == 0) {
+        cout << "ERROR" << endl;
+    }
+    return;
+}
+
+// destructor that releases memory for Roster
+Roster::~Roster() {
+    for (int i = 0; i < 5; i++) {
+        delete classRosterArray[i];
+        classRosterArray[i] = nullptr;
+    };
+
+    
+}

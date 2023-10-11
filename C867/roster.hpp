@@ -19,7 +19,7 @@ public:
     string GetStudentID(int index);
     
     //student info is passed through the add method which creates the student object
-    void add(string studentID, string firstName, string lastName, string email, int studentAge, int daysInCourse1, int daysInCourse2, int daysInCourse3);
+    void add(string studentID, string firstName, string lastName, string email, int studentAge, int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram);
     void parse(string studentData);
     void remove(string studentID);
     void printAll();
