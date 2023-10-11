@@ -19,13 +19,13 @@ Roster::Roster(int classSize) {
     return;
 }
 
+// finding student ID through index
 string Roster::GetStudentID(int ind) {
     string sID = classRosterArray[ind]->getStudentID();
     return sID;
 }
 
 // parse method
-
 void Roster::parse(string studentData) {
     string sID, firstName, lastName, emailAddress;
     int studentAge, daysInCourse1, daysInCourse2, daysInCourse3;
@@ -34,11 +34,11 @@ void Roster::parse(string studentData) {
         
         classRosterArray[ind] = new Student();
         
-        int i = studentData.find(",");
+        long i = studentData.find(",");
         sID = studentData.substr(0, i);
         classRosterArray[ind]-> setID(sID);
         
-        int j = i + 1;
+        long j = i + 1;
         i = studentData.find(",", j);
         firstName = studentData.substr(j, i-j);
         classRosterArray[ind]->setFirstName(firstName);
@@ -61,15 +61,12 @@ void Roster::parse(string studentData) {
         j = i + 1;
         i = studentData.find(",", j);
         daysInCourse1 = stoi(studentData.substr(j, i - j));
-
         j = i + 1;
         i = studentData.find(",", j);
         daysInCourse2 = stoi(studentData.substr(j, i - j));
-
         j = i + 1;
         i = studentData.find(",", j);
         daysInCourse3 = stoi(studentData.substr(j, i - j));
-        
         classRosterArray[ind]->setDaysInCourse(daysInCourse1, daysInCourse2, daysInCourse3);
 
         j = i + 1;
@@ -94,11 +91,11 @@ void Roster::parse(string studentData) {
 
 // adding student object in roster class
 void Roster::add(string studentID, string firstName, string lastName, string email, int age,
-    int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram) {
+    int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeprogram) {
 
     int daysInCourse[3] = { daysInCourse1, daysInCourse2, daysInCourse3 };
 
-    classRosterArray[classSize] = new Student(studentID, firstName, lastName, email, age, daysInCourse, degreeProgram);
+    classRosterArray[classSize] = new Student(studentID, firstName, lastName, email, age, daysInCourse, degreeprogram);
 };
 
 // removing student object in roster class
@@ -126,7 +123,7 @@ void Roster::remove(string id) {
 
 // printing all student objects
 void Roster::printAll() {
-    cout << "All students: " << endl;
+    cout << "All Students: " << endl;
     for (int i = 0; i < classSize; i++) {
         if (classRosterArray[i] == nullptr) {
             continue;
@@ -134,7 +131,6 @@ void Roster::printAll() {
             classRosterArray[i]->print();
         }
     }
-    cout << endl;
     return;
 }
 
@@ -142,7 +138,7 @@ void Roster::printAll() {
 void Roster::printAverageDaysInCourse(string id) {
     for (int i = 0; i < classSize; i++) {
         if (id == classRosterArray[i]->getStudentID()) {
-                cout << id << "" << "'s average days in course:" <<
+                cout << id << "'s average days in course: " <<
                     ((classRosterArray[i]->getDaysInCourse()[0] +
                         classRosterArray[i]->getDaysInCourse()[1] +
                         classRosterArray[i]->getDaysInCourse()[2]) / 3)
@@ -156,33 +152,32 @@ void Roster::printAverageDaysInCourse(string id) {
 void Roster::printInvalidEmails() {
     for (int i = 0; i < classSize; ++i) {
         string emailAd = classRosterArray[i]->getEmailAddress();
-        if ((emailAd.find('@') == string::npos) ||  (emailAd.find(' ') != string::npos) || (emailAd.find('.') == string::npos)) {
-            cout<<"Invalid Email Addresses:" << classRosterArray[i]->getStudentID() << " email address " << emailAd << " is invalid." << endl;
+        if ((emailAd.find('@') == string::npos) || (emailAd.find(' ') != string::npos) || (emailAd.find('.') == string::npos)) {
+            cout<< "Invalid Email Address: " << emailAd << endl;
         }
     }
-    cout << endl;
     return;
 }
 
 // printing by specific degree program
-void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
+void Roster::printByDegreeProgram(DegreeProgram degreeprogram) {
     string degreeString;
-    if (degreeProgram == SECURITY) {
+    if (degreeprogram == SECURITY) {
         degreeString = "SECURITY";
-    } else if (degreeProgram == NETWORK) {
+    } else if (degreeprogram == NETWORK) {
         degreeString = "NETWORK";
-    } else if (degreeProgram == SOFTWARE) {
+    } else if (degreeprogram == SOFTWARE) {
         degreeString = "SOFTWARE";
-    } else if (degreeProgram == NOTHING) {
+    } else if (degreeprogram == NOTHING) {
         degreeString = "NOTHING";
     } else {
         degreeString = "ERROR";
     }
     
-    cout << "Students with degree program: " << degreeString << endl;
+    cout << "Student(s) with degree program: " << degreeString << endl;
     int numStudents = 0;
     for (int i = 0; i < classSize; i++) {
-        if (classRosterArray[i]->getDegreeProgram() == degreeProgram) {
+        if (classRosterArray[i]->getDegreeProgram() == degreeprogram) {
             classRosterArray[i]->print();
             ++numStudents;
         }

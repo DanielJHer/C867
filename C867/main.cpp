@@ -14,6 +14,7 @@ int main() {
     cout << "Written in C++\n";
     cout << "Student ID: 011118163\n";
     cout << "by Daniel Her\n";
+    cout << endl;
     
     // array of student data
     const string studentData[] = {
@@ -33,11 +34,9 @@ int main() {
     // printing all student data
     classRoster->printAll();
     cout << endl;
-    cout << endl;
     
     // printing students with invalid emails
     classRoster->printInvalidEmails();
-    cout << endl;
     cout << endl;
     
     // printing average days in course;
@@ -45,21 +44,17 @@ int main() {
         classRoster->printAverageDaysInCourse(classRoster->GetStudentID(i));
     }
     cout << endl;
-    cout << endl;
     
     // printing student by degree program
     classRoster->printByDegreeProgram(SOFTWARE);
-    cout << endl;
     cout << endl;
     
     // removing A3 student
     classRoster->remove("A3");
     cout << endl;
-    cout << endl;
     
     // printing updated student data
     classRoster->printAll();
-    cout << endl;
     cout << endl;
     
     // attempting to remove A3 student again and printing error
